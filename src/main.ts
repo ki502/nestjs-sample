@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app.module';
 import {MicroserviceOptions, Transport} from "@nestjs/microservices";
+import {MainModule} from "./modules/main.module";
 
 async function bootstrap() {
   // API 설정
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(MainModule);
 
   //RabbitMQ 설정
   const rabbitMq = app.connectMicroservice<MicroserviceOptions>({
@@ -20,7 +21,7 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservices();
-  await app.listen(3002);
+  await app.listen(3000);
 }
 
 bootstrap();
